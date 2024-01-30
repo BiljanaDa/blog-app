@@ -10,6 +10,11 @@ export default function AddPost() {
     e.preventDefault();
     await postsService.add(newPost);
   };
+
+  const handleResetForm = () => {
+    setNewPost({ title: "", text: "" });
+  };
+
   return (
     <div>
       <form onSubmit={handleAddPost} className="needs-validation">
@@ -40,6 +45,13 @@ export default function AddPost() {
         </div>
         <button type="submit" class="btn btn-primary">
           Submit
+        </button>
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={handleResetForm}
+        >
+          Reset
         </button>
       </form>
     </div>
