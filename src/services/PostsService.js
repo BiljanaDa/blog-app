@@ -4,7 +4,9 @@ import HttpService from "./HttpService";
 class PostsService extends HttpService {
   async getAll() {
     try {
-      const { data } = await this.client.get("/posts");
+      const { data } = await this.client.get(
+        'posts?filter={"include":["comments"]}'
+      );
       return data;
     } catch (error) {
       console.log(error);
