@@ -12,16 +12,25 @@ export default function AddPost() {
       const data = await postsService.getId(id);
       setNewPost(data);
     };
-    fetchPost();
-  }, []);
+    if (id) {
+      fetchPost();
+    }
+  }, [id]);
 
   const handleAddPost = async (e) => {
     e.preventDefault();
+    let data = null;
     if (id) {
-      await postsService.edit(id, newPost);
+      data = await postsService.edit(id, newPost);
     } else {
-      await postsService.add(newPost);
+      data = await postsService.add(newPost);
     }
+
+    if (!data) {
+      alert("The new post is not created");
+      return;
+    }
+
     navigate("/posts");
   };
 

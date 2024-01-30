@@ -14,7 +14,9 @@ class PostsService extends HttpService {
 
   async getId(id) {
     try {
-      const { data } = await this.client.get(`posts/${id}`);
+      const { data } = await this.client.get(
+        `posts/${id}?filter={"include":["comments"]}`
+      );
       return data;
     } catch (error) {
       console.log(error);
@@ -32,9 +34,9 @@ class PostsService extends HttpService {
     return null;
   }
 
-  async edit(id, newPost) {
+  async edit(id, post) {
     try {
-      const { data } = await this.client.put(`posts/${id}`, newPost);
+      const { data } = await this.client.put(`posts/${id}`, post);
       return data;
     } catch (error) {
       console.log(error);
@@ -45,6 +47,17 @@ class PostsService extends HttpService {
   async delete(id) {
     try {
       const { data } = await this.client.delete(`posts/${id}`);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+    return null;
+  }
+
+  async addComment(comment, postId) {
+    try {
+      const url = `posts/${postId}/comments`;
+      const { data } = await this.client.post(url, comment);
       return data;
     } catch (error) {
       console.log(error);
