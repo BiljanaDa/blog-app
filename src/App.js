@@ -8,6 +8,7 @@ import {
 import Navs from "./components/Navs";
 import AppPosts from "./pages/AppPosts";
 import SinglePost from "./pages/SinglePost";
+import AddPost from "./pages/AddPost";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Navigate to={"/posts"} />} />
         <Route path="/posts" element={<AppPosts />} />
         <Route path="/posts/:id" element={<SinglePost />} />
+        <Route path="/add" element={<AddPost />} />
       </Routes>
     </Router>
   );

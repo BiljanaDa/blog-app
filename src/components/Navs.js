@@ -9,6 +9,11 @@ export default function Navs() {
           Posts
         </Link>
       </li>
+      <li class="nav-item">
+        <Link to={"/add"} class="nav-link active">
+          Add post
+        </Link>
+      </li>
     </ul>
   );
 }

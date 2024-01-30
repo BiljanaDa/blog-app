@@ -21,6 +21,16 @@ class PostsService extends HttpService {
     }
     return null;
   }
+
+  async add(newPost) {
+    try {
+      const { data } = await this.client.post("posts", newPost);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+    return null;
+  }
 }
 
 const postsService = new PostsService();
