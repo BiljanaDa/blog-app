@@ -24,6 +24,8 @@ export default function AddPost() {
             Title
           </label>
           <input
+            required
+            minLength={2}
             type="text"
             class="form-control"
             id="title"
@@ -36,6 +38,8 @@ export default function AddPost() {
             Text
           </label>
           <input
+            required
+            maxLength={300}
             type="text"
             class="form-control"
             id="text"
