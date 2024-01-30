@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import postsService from "../services/PostsService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AppPosts() {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -25,6 +26,12 @@ export default function AppPosts() {
                 <h3 class="mb-0">{post.title}</h3>
                 <p class="card-text mb-auto">{post.text}</p>
                 <Link to={`/posts/${post.id}`}>View post</Link>
+                <button
+                  class="btn btn-primary"
+                  onClick={() => navigate(`/edit/${post.id}`)}
+                >
+                  Edit
+                </button>
               </div>
             </div>
           </div>

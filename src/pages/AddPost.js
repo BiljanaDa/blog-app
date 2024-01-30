@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import postsService from "../services/PostsService";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function AddPost() {
   const [newPost, setNewPost] = useState({ title: "", text: "" });
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      const data = await postsService.getId(id);
+      setNewPost(data);
+    };
+    fetchPost();
+  }, []);
 
   const handleAddPost = async (e) => {
     e.preventDefault();
-    await postsService.add(newPost);
+    if (id) {
+      await postsService.edit(id, newPost);
+    } else {
+      await postsService.add(newPost);
+    }
+    navigate("/posts");
   };
 
   const handleResetForm = () => {
@@ -19,7 +33,7 @@ export default function AddPost() {
     <div>
       <form onSubmit={handleAddPost} className="needs-validation">
         <div class="mb-3">
-          <h2>Add a new post:</h2>
+          <h2>{id ? "Edit post" : "Add new post"}</h2>
           <label for="text" class="form-label">
             Title
           </label>
@@ -48,7 +62,7 @@ export default function AddPost() {
           />
         </div>
         <button type="submit" class="btn btn-primary">
-          Submit
+          {id ? "Edit" : "Add"}
         </button>
         <button
           type="button"
