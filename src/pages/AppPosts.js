@@ -14,6 +14,13 @@ export default function AppPosts() {
     fetchPosts();
   }, []);
 
+  const handleDelete = async (id) => {
+    const data = await postsService.delete(id);
+    if (data.count) {
+      setPosts(posts.filter((post) => post.id !== id));
+    }
+  };
+
   return (
     <div>
       <h1>Posts: </h1>
@@ -27,10 +34,16 @@ export default function AppPosts() {
                 <p class="card-text mb-auto">{post.text}</p>
                 <Link to={`/posts/${post.id}`}>View post</Link>
                 <button
-                  class="btn btn-primary"
+                  class="btn btn-info"
                   onClick={() => navigate(`/edit/${post.id}`)}
                 >
                   Edit
+                </button>
+                <button
+                  class="btn btn-danger"
+                  onClick={() => handleDelete(post.id)}
+                >
+                  Delete
                 </button>
               </div>
             </div>
