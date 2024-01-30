@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import postsService from "../services/PostsService";
+import { Link } from "react-router-dom";
 
 export default function AppPosts() {
   const [posts, setPosts] = useState([]);
@@ -23,6 +24,7 @@ export default function AppPosts() {
                 <strong class="d-inline-block mb-2 text-primary">Post</strong>
                 <h3 class="mb-0">{post.title}</h3>
                 <p class="card-text mb-auto">{post.text}</p>
+                <Link to={`/posts/${post.id}`}>View post</Link>
               </div>
             </div>
           </div>
